@@ -1,0 +1,37 @@
+﻿[dotenv@17.2.3] injecting env (10) from .env -- tip: Γ£à audit secrets and track compliance: https://dotenvx.com/ops
+=== MySQL Connection Diagnostics ===
+
+Environment Variables:
+DB_HOST: viaduct.proxy.rlwy.net
+DB_PORT: 43599
+DB_USER: root
+DB_NAME: testdb
+DB_PASSWORD: ***avul
+
+=== Testing Connection ===
+
+
+Trying: With SSL (rejectUnauthorized: false)
+Γ¥î FAILED
+Error code: PROTOCOL_CONNECTION_LOST
+Error message: Connection lost: The server closed the connection.
+
+Trying: Without SSL
+Γ¥î FAILED
+Error code: PROTOCOL_CONNECTION_LOST
+Error message: Connection lost: The server closed the connection.
+
+Trying: With SSL (require)
+Γ¥î FAILED
+Error code: PROTOCOL_CONNECTION_LOST
+Error message: Connection lost: The server closed the connection.
+
+=== All connection attempts failed ===
+
+Possible issues:
+1. Railway MySQL service might not be running
+2. Connection details (host/port) might be incorrect
+3. Firewall or network restrictions
+4. Railway service variables might have changed
+
+Please verify your Railway MySQL service is active and get the latest connection details from Railway dashboard.
