@@ -29,6 +29,30 @@ module.exports = function (app) {
         controller.addItem
     );
 
+    app.put(
+        "/api/inventory/category/:id",
+        [authJwt.verifyToken, validateBranchOwnership],
+        controller.updateCategory
+    );
+
+    app.delete(
+        "/api/inventory/category/:id",
+        [authJwt.verifyToken, validateBranchOwnership],
+        controller.deleteCategory
+    );
+
+    app.put(
+        "/api/inventory/item/:id",
+        [authJwt.verifyToken, validateBranchOwnership],
+        controller.updateItem
+    );
+
+    app.delete(
+        "/api/inventory/item/:id",
+        [authJwt.verifyToken, validateBranchOwnership],
+        controller.deleteItem
+    );
+
 
     app.get(
         "/api/inventory",
