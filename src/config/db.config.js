@@ -7,15 +7,18 @@ module.exports = {
     dialect: "mysql",
     dialectOptions: {
         ssl: {
+            require: true,
             rejectUnauthorized: false
         },
         enableKeepAlive: true,
-        keepAliveInitialDelay: 10000
+        keepAliveInitialDelay: 10000,
+        connectTimeout: 60000
     },
     pool: {
         max: 5,
         min: 0,
         acquire: 60000,
-        idle: 10000
+        idle: 10000,
+        evict: 10000
     }
 };

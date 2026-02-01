@@ -1,4 +1,6 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
+const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
+dotenv.config({ path: envFile });
 const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
@@ -35,11 +37,21 @@ app.get("/", (req, res) => {
 // database initialization
 const Role = db.role;
 
+console.log(`Attempting to connect to DB at ${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || 3306}`);
+
 // In production, use db.sequelize.sync();
-db.sequelize.sync({ alter: true }).then(() => {
-    console.log('Syncing Db and Altering Tables...');
-    initial();
-});
+db.sequelize.sync({ alter: true })
+    .then(() => {
+        console.log('Successfully connected to the database.');
+        console.log('Syncing Db and Altering Tables...');
+        initial();
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err.message);
+        if (err.parent) {
+            console.error('Parent Error:', err.parent.message);
+        }
+    });
 
 function initial() {
     Role.findOrCreate({
