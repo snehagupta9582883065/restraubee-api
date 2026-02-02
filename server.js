@@ -32,13 +32,31 @@ app.get("/", (req, res) => {
     res.json({ message: "Hello World." });
 });
 
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+
 // database initialization
 const Role = db.role;
 
-// In production, use db.sequelize.sync();
 db.sequelize.sync({ alter: true }).then(() => {
-    console.log('Syncing Db and Altering Tables...');
     initial();
+    const server = app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}.`);
+    });
+
+    server.on('error', (err) => {
+        console.error('Server Error:', err);
+    });
+
+    server.on('close', () => {
+        console.log('Server Connection Closed.');
+    });
+}).catch(err => {
+    console.error('Database Sync Error:', err);
+    // Fallback start
+    app.listen(PORT, () => {
+        console.log(`Server started in fallback mode on port ${PORT}.`);
+    });
 });
 
 function initial() {
@@ -64,9 +82,3 @@ require('./src/routes/user.routes')(app);
 require('./src/routes/order.routes')(app);
 require('./src/routes/inventory.routes')(app);
 require('./src/routes/admin.routes')(app);
-
-// set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
-});

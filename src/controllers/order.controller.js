@@ -16,7 +16,14 @@ exports.createOrder = async (req, res) => {
             totalItems,
             tableStatus,
             orderType,
-            orderStatus
+            orderStatus,
+            invoiceId,
+            paymentMethod,
+            discount,
+            serviceCharge,
+            gstRate,
+            appliedCharges,
+            date
         } = req.body;
 
         if (!customerName) {
@@ -33,8 +40,14 @@ exports.createOrder = async (req, res) => {
             notes,
             totalAmount,
             tableStatus,
-            orderType,
-            orderStatus
+            orderStatus,
+            invoiceId,
+            paymentMethod,
+            discount,
+            serviceCharge,
+            gstRate,
+            appliedCharges: appliedCharges ? JSON.stringify(appliedCharges) : "[]",
+            date
         });
 
         if (totalItems && totalItems.length > 0) {
@@ -98,7 +111,14 @@ exports.bulkCreateOrders = async (req, res) => {
                 totalItems,
                 tableStatus,
                 orderType,
-                orderStatus
+                orderStatus,
+                invoiceId,
+                paymentMethod,
+                discount,
+                serviceCharge,
+                gstRate,
+                appliedCharges,
+                date
             } = orderData;
 
             if (!customerName) continue;
@@ -113,8 +133,14 @@ exports.bulkCreateOrders = async (req, res) => {
                 notes,
                 totalAmount,
                 tableStatus,
-                orderType,
-                orderStatus
+                orderStatus,
+                invoiceId,
+                paymentMethod,
+                discount,
+                serviceCharge,
+                gstRate,
+                appliedCharges: appliedCharges ? JSON.stringify(appliedCharges) : "[]",
+                date
             });
 
             if (totalItems && totalItems.length > 0) {

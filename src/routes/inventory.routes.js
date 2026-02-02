@@ -10,10 +10,30 @@ module.exports = function (app) {
         next();
     });
 
+
     app.post(
         "/api/inventory",
         [authJwt.verifyToken, validateBranchOwnership],
         controller.createInventory
+    );
+
+    app.post(
+        "/api/inventory/category",
+        [authJwt.verifyToken, validateBranchOwnership],
+        controller.addCategory
+    );
+
+    app.post(
+        "/api/inventory/item",
+        [authJwt.verifyToken, validateBranchOwnership],
+        controller.addItem
+    );
+
+
+    app.get(
+        "/api/inventory",
+        [authJwt.verifyToken, validateBranchOwnership],
+        controller.getInventoryByBranch
     );
 
     app.get(
