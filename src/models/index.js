@@ -10,6 +10,7 @@ const sequelize = new Sequelize(
         port: config.PORT,
         dialect: config.dialect,
         dialectOptions: config.dialectOptions,
+        logging: false, // Disable SQL logging
         pool: {
             max: config.pool.max,
             min: config.pool.min,
@@ -27,8 +28,12 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.branch = require("../models/branch.model.js")(sequelize, Sequelize);
+db.license = require("../models/license.model.js")(sequelize, Sequelize);
 
 // Associations
+db.user.hasMany(db.license, { foreignKey: "userId", as: "licenses" });
+db.license.belongsTo(db.user, { foreignKey: "userId", as: "user" });
+
 db.user.hasMany(db.branch, { foreignKey: "parentAdminId", as: "branches" });
 db.branch.belongsTo(db.user, { foreignKey: "parentAdminId", as: "admin" });
 

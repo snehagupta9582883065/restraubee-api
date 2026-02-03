@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+dist/
+build/
+
+# Environment Variables
+.env
+.env.production
+.env.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database
+*.sqlite
+diagnose-output.txt
+test-output.txt

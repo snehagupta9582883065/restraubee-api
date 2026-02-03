@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
-const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
-dotenv.config({ path: envFile });
+dotenv.config(); // Load .env
+dotenv.config({ path: '.env.production' }); // Then try .env.production (will not overwrite if already set)
 const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
@@ -33,6 +33,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
     res.json({ message: "Hello World." });
 });
+
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
 
 // database initialization
 const Role = db.role;
@@ -77,8 +80,6 @@ require('./src/routes/order.routes')(app);
 require('./src/routes/inventory.routes')(app);
 require('./src/routes/admin.routes')(app);
 
-// set port, listen for requests
-const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

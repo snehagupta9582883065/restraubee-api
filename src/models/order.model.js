@@ -36,6 +36,30 @@ module.exports = (sequelize, Sequelize) => {
         orderStatus: {
             type: Sequelize.STRING,
             defaultValue: "WAITING"
+        },
+        invoiceId: {
+            type: Sequelize.STRING
+        },
+        paymentMethod: {
+            type: Sequelize.STRING
+        },
+        discount: {
+            type: Sequelize.DECIMAL(10, 2),
+            defaultValue: 0
+        },
+        serviceCharge: {
+            type: Sequelize.DECIMAL(10, 2),
+            defaultValue: 0
+        },
+        gstRate: {
+            type: Sequelize.DECIMAL(10, 2),
+            defaultValue: 0
+        },
+        appliedCharges: {
+            type: Sequelize.TEXT // Stored as JSON string
+        },
+        date: {
+            type: Sequelize.DATE
         }
     });
 
